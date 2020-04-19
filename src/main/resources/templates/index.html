@@ -143,92 +143,12 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md4">
-            <div class="fly-panel">
-                <h3 class="fly-panel-title"><i class="layui-icon layui-icon-tips"></i>&emsp;关于我</h3>
-                <div class="fly-home fly-panel">
-                    <img class="about-me" src="../static/image/admin.jpg" alt="YeLv">
-                    <h1>
-                        YeLv
-                        <i class="iconfont icon-nan"></i>
-                        <i class="layui-badge fly-badge-vip">SVIP</i>
-                    </h1>
-                    <p class="fly-home-info">
-                        <i class="iconfont icon-shijian"></i><span>2020-6-17 加入</span>
-                        <i class="iconfont icon-chengshi"></i><span>来自贵州</span>
-                    </p>
-
-                    <p class="fly-home-sign">（人生是一场修行）</p>
-                    <p class="fly-home-sign">(河出伏流，一泻汪洋。潜龙腾渊，鳞爪飞扬。乳虎啸谷，百兽震惶。鹰隼试翼，风尘翕张。
-                        奇花初胎，矞矞皇皇。干将发硎，有作其芒。天戴其苍，地履其黄。纵有千古，横有八荒。
-                        前途似海，来日方长。美哉我少年中国，与天不老！壮哉我中国少年，与国无疆！)</p>
-
-                </div>
-            </div>
-
-            <div class="fly-panel">
-                <h3 class="fly-panel-title"><i class="layui-icon layui-icon-note"></i>&emsp;标签</h3>
-                <div class="my-btn">
-                    <div class="my-btn-th">
-                        <button type="button" class="layui-btn layui-btn-primary">Java <span class="layui-badge layui-bg-green">灰</span></button>
-                        <button type="button" class="layui-btn layui-btn-primary">前端 <span class="layui-badge layui-bg-green">灰</span></button>
-                    </div>
-                    <div class="my-btn-th">
-                        <button type="button" class="layui-btn layui-btn-primary">前端layui<span class="layui-badge layui-bg-green">灰</span></button>
-                        <button type="button" class="layui-btn layui-btn-primary">mysql<span class="layui-badge layui-bg-green">灰</span></button>
-                    </div>
-                </div>
-
-            </div>
-            <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
-                <h3 class="fly-panel-title"><i class="fa fa-bookmark"></i>&emsp;最新推荐</h3>
-                <dl>
-                    <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                </dl>
-            </div>
-
-
-            <div class="fly-panel">
-                <div class="fly-panel-title">
-                    <i class="fa fa-angellist"></i>&emsp;这里可是广告区域 …^ o ^…
-                </div>
-                <div class="fly-panel-main">
-                    <br>
-
-                    <a href="#" target="_blank" class="fly-zanzhu"
-                       time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">哈哈^ o ^宝藏位置 * _ *</a>
-                </div>
-            </div>
-
-            <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-                <img src="../../res/images/weixin.jpg" style="max-width: 100%;" alt="layui">
-                <p style="position: relative; color: #666;">微信扫码关注 layui 公众号</p>
-            </div>
-
-        </div>
+        <!-- 右公共区域 -->
+        <div th:replace="/common/common_fragments::rightside"></div>
     </div>
 </div>
 
+<!-- 底部 -->
 <div th:replace="/common/common_fragments::footer"></div>
 
 <script src="../static/model/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/model/jquery-3.4.1/jquery-3.4.1.min.js}"></script>

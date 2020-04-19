@@ -1,50 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/common_fragments::head(~{::title})">
     <title>分类</title>
-    <link rel="stylesheet" href="../static/model/layui/css/layui.css">
-    <link rel="stylesheet" href="../static/css/global.css">
-    <link rel="stylesheet" href="../static/model/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="../static/css/my.css">
 </head>
 <body>
-
-<div class="fly-header layui-bg-cyan ">
-    <div class="layui-container ">
-        <div class="fly-logo">
-            <h1 style="color: #009f95">YeLv-Blog</h1>
-        </div>
-        <ul class="layui-nav fly-nav layui-hide-xs">
-            <li class="layui-nav-item layui-this">
-                <a href="/"><i class="layui-icon layui-icon-home my-icon-style"></i>首页</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="mydoc"><i class="layui-icon layui-icon-form my-icon-style"></i>分类</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank"><i class="layui-icon layui-icon-note my-icon-style"></i>标签</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank"><i class="layui-icon layui-icon-next my-icon-style"></i>时间线</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank"><i class="layui-icon layui-icon-tips my-icon-style"></i>关于我</a>
-            </li>
-        </ul>
-
-        <ul class="layui-nav fly-nav-user">
-
-            <li class="layui-nav-item">
-                <input type="text" style="height: 30px;width: 200px;opacity: 40%" placeholder="  Serach...">
-                <i class="layui-icon layui-icon-search my-icon-style"></i>
-            </li>
-
-        </ul>
-    </div>
-</div>
-
+<!-- 头部 -->
+<div th:replace="/common/common_fragments::top"></div>
 
 <div class="layui-container my-container-padding">
     <div class="layui-row layui-col-space14 my-container-padding">
@@ -202,101 +163,14 @@
 
             </div>
         </div>
-        <div class="layui-col-md4">
-            <div class="fly-panel">
-                <h3 class="fly-panel-title"><i class="layui-icon layui-icon-tips"></i>&emsp;关于我</h3>
-                <div class="fly-home fly-panel">
-                    <img class="about-me" src="../static/image/admin.jpg" alt="YeLv">
-                    <h1>
-                        YeLv
-                        <i class="iconfont icon-nan"></i>
-                        <i class="layui-badge fly-badge-vip">SVIP</i>
-                    </h1>
-                    <p class="fly-home-info">
-                        <i class="iconfont icon-shijian"></i><span>2020-6-17 加入</span>
-                        <i class="iconfont icon-chengshi"></i><span>来自贵州</span>
-                    </p>
-
-                    <p class="fly-home-sign">（人生是一场修行）</p>
-                    <p class="fly-home-sign">(河出伏流，一泻汪洋。潜龙腾渊，鳞爪飞扬。乳虎啸谷，百兽震惶。鹰隼试翼，风尘翕张。
-                        奇花初胎，矞矞皇皇。干将发硎，有作其芒。天戴其苍，地履其黄。纵有千古，横有八荒。
-                        前途似海，来日方长。美哉我少年中国，与天不老！壮哉我中国少年，与国无疆！)</p>
-
-                </div>
-            </div>
-
-            <div class="fly-panel">
-                <h3 class="fly-panel-title"><i class="layui-icon layui-icon-note"></i>&emsp;标签</h3>
-                <div class="my-btn">
-                    <div class="my-btn-th">
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">Java</button>
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">前端</button>
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">springboot</button>
-                    </div>
-                    <div class="my-btn-th">
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">前端layui</button>
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">mysql</button>
-                        <button type="button" class="layui-btn layui-btn-primary layui-btn">Python</button>
-                    </div>
-                </div>
-
-            </div>
-            <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
-                <h3 class="fly-panel-title"><i class="fa fa-bookmark"></i>&emsp;最新推荐</h3>
-                <dl>
-                    <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="user/home.html">
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"><cite>贤心</cite><i>106次回答</i>
-                        </a>
-                    </dd>
-                </dl>
-            </div>
-
-
-            <div class="fly-panel">
-                <div class="fly-panel-title">
-                    <i class="fa fa-angellist"></i>&emsp;这里可是广告区域 …^ o ^…
-                </div>
-                <div class="fly-panel-main">
-                    <br>
-
-                    <a href="#" target="_blank" class="fly-zanzhu"
-                       time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">哈哈^ o ^宝藏位置 * _ *</a>
-                </div>
-            </div>
-
-            <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-                <img src="../../res/images/weixin.jpg" style="max-width: 100%;" alt="layui">
-                <p style="position: relative; color: #666;">微信扫码关注 layui 公众号</p>
-            </div>
-
-        </div>
+        <!-- 右公共区域 -->
+        <div th:replace="/common/common_fragments::rightside"></div>
     </div>
 </div>
 
-<div class="fly-footer">
-    <div>
-        <p>
-            Copyright © 2020
-        </p>
-    </div>
-</div>
+<!-- 底部 -->
+<div th:replace="/common/common_fragments::footer"></div>
+
 <script src="../static/model/layui/layui.js"></script>
 <script>
     layui.config({
