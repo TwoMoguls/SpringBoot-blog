@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 1.5继承WebMvcConfigAdapter
+ * 2.0后实现WebMvcConfigurer
  */
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
