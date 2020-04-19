@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 异常处理器
+ * 控制异常处理器
  */
 @ControllerAdvice
 public class ControllerExceptionHandler {
