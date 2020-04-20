@@ -1,100 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="utf-8">
-	<title>博客后台</title>
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="format-detection" content="telephone=no">
-	<link rel="stylesheet" href="./static/model/layui/layui.js" th:href="@{/model/layui/css/layui.css}" media="all" />
-	<link rel="stylesheet" href="./static/css/index.css" th:href="@{/css/index.css}" media="all" />
+<head th:replace="/common/admin_common_fragments::head(~{::title})">
+    <title>后台首页</title>
 </head>
-<body class="main_body">
-	<div class="layui-layout layui-layout-admin">
-		<!-- 顶部 -->
-		<div class="layui-header header">
-			<div class="layui-main mag0">
-				<a href="#" class="logo">博客后台</a>
-				<!-- 显示/隐藏菜单 -->
-				<ul class="layui-nav topLevelMenus" >
-					<li class="layui-nav-item layui-this" data-menu="contentManagement">
-						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a>
-					</li>
-					<li class="layui-nav-item" data-menu="memberCenter" pc>
-						<a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a>
-					</li>
-				</ul>
-			    <!-- 顶部右侧菜单 -->
-			    <ul class="layui-nav top_menu">
-					<li class="layui-nav-item">
-						<a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
-					</li>
-					<li class="layui-nav-item lockcms">
-						<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
-					</li>
-					<li class="layui-nav-item">
-						<img src="images/face.jpg" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName">YELV</cite>
-					</li>
-					<li class="layui-nav-item">
-						<a href="page/login/login.html" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<!-- 左侧导航 -->
-		<div class="layui-side layui-bg-black">
-			<div class="user-photo">
-				<a class="img" title="我的头像" ><img src="images/face.jpg"></a>
-				<p>你好！<span class="userName">管理员</span>, 欢迎登录</p>
-			</div>
+<body>
+<!-- 头部 -->
+<div th:replace="/common/admin_common_fragments::admin_top"></div>
 
-			<div class="navBar layui-side-scroll" id="navBar">
-				<ul class="layui-nav layui-nav-tree">
-					<li class="layui-nav-item layui-this">
-						<a href="javascript:;" data-url="page/main.html"><i class="layui-icon" data-icon=""></i><cite>后台首页</cite></a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<!-- 右侧内容 -->
-		<div class="layui-body layui-form">
-			<div class="layui-tab mag0" lay-filter="bodyTab" id="top_tabs_box">
-				<ul class="layui-tab-title top_tab" id="top_tabs">
-					<li class="layui-this" lay-id=""><i class="layui-icon">&#xe68e;</i> <cite>后台首页</cite></li>
-				</ul>
-				<ul class="layui-nav closeBox">
-				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="layui-icon caozuo">&#xe643;</i> 页面操作</a>
-				    <dl class="layui-nav-child">
-					  <dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
-				      <dd><a href="javascript:;" class="closePageOther"><i class="seraph icon-prohibit"></i> 关闭其他</a></dd>
-				      <dd><a href="javascript:;" class="closePageAll"><i class="seraph icon-guanbi"></i> 关闭全部</a></dd>
-				    </dl>
-				  </li>
-				</ul>
-				<div class="layui-tab-content clildFrame">
-					<div class="layui-tab-item layui-show">
-						<iframe src="page/main.html"></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 底部 -->
-		<div class="layui-footer footer">
-			<p><span>copyright @ YeLv</span></p>
-		</div>
-	</div>
+<div class="fly-panel fly-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li class="layui-hide-xs"><a href="/">列表</a></li>
+            <li><a href="jie/index.html">发表</a></li>
+        </ul>
 
-	<!-- 移动导航 -->
-	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
-	<div class="site-mobile-shade"></div>
+    </div>
+</div>
 
-	<script type="text/javascript" src="/static/model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
-	<script type="text/javascript" src="/static/js/index.js" th:src="@{/js/index.js}"></script>
-	<script type="text/javascript" src="/static/js/cache.js" th:src="@{/js/cache.jss}"></script>
+<div class="layui-container fly-marginTop">
+    <div class="fly-panel" pad20 style="padding-top: 5px;">
+        <div class="layui-form layui-form-pane" style="padding-top: 20px">
+            <blockquote class="layui-elem-quote layui-bg-green">
+                <div id="nowTime"></div>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+<!-- 底部 -->
+<div th:replace="/common/common_fragments::footer"></div>
+
+<script src="./model/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/model/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+<script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
+<script src="./model/editormd/editormd.min.js" th:src="@{/model/editormd/editormd.min.js}"></script>
+<script type="text/javascript">
+    //获取系统时间
+    var newDate = '';
+    getLangDate();
+    //值小于10时，在前面补0
+    function dateFilter(date){
+        if(date < 10){return "0"+date;}
+        return date;
+    }
+    function getLangDate(){
+        var dateObj = new Date(); //表示当前系统时间的Date对象
+        var year = dateObj.getFullYear(); //当前系统时间的完整年份值
+        var month = dateObj.getMonth()+1; //当前系统时间的月份值
+        var date = dateObj.getDate(); //当前系统时间的月份中的日
+        var day = dateObj.getDay(); //当前系统时间中的星期值
+        var weeks = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+        var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串
+        var hour = dateObj.getHours(); //当前系统时间的小时值
+        var minute = dateObj.getMinutes(); //当前系统时间的分钟值
+        var second = dateObj.getSeconds(); //当前系统时间的秒钟值
+        var timeValue = "" +((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午" ); //当前时间属于上午、晚上还是下午
+        newDate = dateFilter(year)+"年"+dateFilter(month)+"月"+dateFilter(date)+"日 "+" "+dateFilter(hour)+":"+dateFilter(minute)+":"+dateFilter(second);
+        document.getElementById("nowTime").innerHTML = "亲爱的管理员，"+timeValue+"好！ 欢迎登录。当前时间为： "+newDate+"　"+week;
+        setTimeout("getLangDate()",1000);
+    }
+    layui.use(['form','element','layer','jquery'],function() {
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer,
+            element = layui.element;
+        $ = layui.jquery;
+        //上次登录时间【此处应该从接口获取，实际使用中请自行更换】
+        $(".loginTime").html(newDate.split("日")[0] + "日</br>" + newDate.split("日")[1]);
+    })
+</script>
 </body>
 </html>

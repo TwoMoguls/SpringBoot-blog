@@ -48,7 +48,11 @@
     height: 20px;
     border-radius: 100%;
 }
-
+.my-admin-image{
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
 .my-pa-th{
     padding-right: 10px;
 }

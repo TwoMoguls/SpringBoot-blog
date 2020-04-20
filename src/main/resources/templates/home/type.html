@@ -171,7 +171,7 @@
 <!-- 底部 -->
 <div th:replace="/common/common_fragments::footer"></div>
 
-<script src="../static/model/layui/layui.js"></script>
+<script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
 <script>
     layui.config({
         version: "3.0.0"
@@ -182,7 +182,7 @@
 </script>
 <script>
     layui.config({
-        base: 'static/model/layui/lay/modules' //你的扩展模块所在目录
+        base: '/model/layui/lay/modules/' //你的扩展模块所在目录
     }).use('form'); //这里的 main 模块包含了 mod1、mod2、mod3 等等扩展模块，看官方文档
 </script>
 </body>

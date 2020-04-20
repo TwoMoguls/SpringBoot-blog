@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 博客管理控制器
  */
 
-@Controller
+/*@Controller
 @RequestMapping("/admin")
 public class BlogController {
 
@@ -16,5 +16,5 @@ public class BlogController {
     public String blogs() {
         return "admin/blogs";
     }
-}
+}*/
 

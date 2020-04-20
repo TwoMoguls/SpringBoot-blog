@@ -21,7 +21,7 @@ public class LogAspect {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 定义切面
+     * 定义切入点
      */
     @Pointcut("execution(* com.yelv.yelv_blog.controller.*.*(..))")
     public void log(){}

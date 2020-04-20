@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/common_fragments::head(~{::title})">
+    <title>error</title>
+</head>
+<body>
+
+<div class="layui-container fly-marginTop">
+    <div class="fly-panel">
+        <div class="fly-none">
+            <h2><i class="iconfont icon-kiss"></i></h2>
+            <p>对不起，这是一个错误页面，您看到了，不知道是好事还是坏事…</p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/common/common_fragments::footer"></div>
+
+</body>
+
+</html>
