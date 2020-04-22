@@ -1,7 +1,7 @@
 package com.yelv.yelv_blog.service.impl;
 
 import com.yelv.yelv_blog.entity.User;
-import com.yelv.yelv_blog.mapper.UserRepository;
+import com.yelv.yelv_blog.mapper.UserMapper;
 import com.yelv.yelv_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +14,15 @@ import org.springframework.util.DigestUtils;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    UserMapper userMapper;
 
     @Override
-    public User checkUser(String username, String password) {
+    public User checkUser(String userName, String userPass) {
         //MD5加密
-        String pwd = DigestUtils.md5DigestAsHex(password.getBytes());
+        String pwd = DigestUtils.md5DigestAsHex(userPass.getBytes());
         System.out.println(pwd);
-        User user = userRepository.findByUsernameAndPassword(username,pwd);
+        User user = userMapper.findByUsernameAndPassword(userName,pwd);
+        System.out.println(user);
         return user;
     }
 }

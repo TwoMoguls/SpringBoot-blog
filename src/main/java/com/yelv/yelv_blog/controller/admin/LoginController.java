@@ -34,26 +34,32 @@ public class LoginController {
 
     /**
      * 验证密码
-     * @param username
-     * @param password
+     * @param userName
+     * @param userPass
      * @param session
      * @param attributes
      * @return
      */
     @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String password,
+    public String login(@RequestParam String userName,
+                        @RequestParam String userPass,
                         HttpSession session,
                         RedirectAttributes attributes){
-        User user = userService.checkUser(username, password);
+        System.out.println(userName);
+        User user = userService.checkUser(userName, userPass);
         if(user != null){
-            user.setPassword(null);
+            user.setUserPass(null);
             session.setAttribute("user", user);
             return "admin/index";
         }else {
             attributes.addFlashAttribute("msg", "用户名或密码错误");
             return "redirect:/admin";
         }
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "/admin/index";
     }
 
     @GetMapping("/logout")

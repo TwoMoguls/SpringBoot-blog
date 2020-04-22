@@ -4,17 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 博客标签
- */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+public class ArticleAndTag {
 
-    private Integer tagId;
+    private Integer articleId;
 
-    private String tagName;
-
+    private  Integer tagId;
 }

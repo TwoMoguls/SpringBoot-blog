@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yelv.yelv_blog.mapper.ArticleMapper.java">
+    <resultMap id="ArticleMap" type="com.yelv.yelv_blog.vo.ArticleVo">
+        <id property="articleId" column="article_id"/>
+        <result property="articleUserId" column="article_user_id"/>
+        <result property="articleUserId" column="article_user_id"/>
+        <result property="articleTitle" column="article_title"/>
+        <result property="articleContent" column="article_content"/>
+        <result property="articleViewCount" column="article_view_count"/>
+        <result property="articleUpdateTime" column="article_update_time"/>
+        <result property="articleCreateTime" column="article_create_time"/>
+        <result property="articleSummary" column="article_summary"/>
+        <result property="articleImage" column="article_image"/>
+        <result property="articleCommend" column="article_commend"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="tagId" column="tag_id"/>
+        <association property="Category" javaType="com.yelv.yelv_blog.entity.Category">
+            <id property="categoryId" column="category_id"/>
+            <result property="categoryName" column="category_name"/>
+        </association>
+        <association property="User" javaType="com.yelv.yelv_blog.entity.User">
+            <id property="userId" column="user_id"/>
+            <result property="userNickname" column="user_nickname"/>
+            <result property="userName" column="user_name"/>
+            <result property="userEmail" column="user_email"/>
+            <result property="userAvatar" column="user_avatar"/>
+        </association>
+    </resultMap>
+
+    <!-- 前端博客展示 -->
+
+    <select id="getIndexArticle" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_title`, a.`article_image`, a.`article_view_count`, a.`article_update_time`, a.`article_summary`,
+               c.`category_name` acname, c.`category_id` ca,
+               u.`user_nickname`, u.`user_avatar`
+        FROM article a,category c, USER u
+        WHERE a.`category_id` = c.`category_id` AND  u.`user_id` = a.`article_user_id` ORDER BY a.`article_update_time` DESC
+    </select>
+
+    <select id="getAllArticle" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_title`, a.`article_update_time`, a.`article_commend`, a.`category_id`,
+               c.`category_id` cid, c.`category_name` cname
+        FROM article a, category c
+        WHERE a.category_id = c.`category_id`
+    </select>
+
+    <select id="getByTypeId" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_title`, a.`article_image`, a.`article_view_count`, a.`article_update_time`, a.`article_summary`,
+               c.`category_name` cname, c.`category_id` cid,
+               u.nickname, u.avatar
+        FROM article a, category c , USER u
+        WHERE a.`category_id` = c.`category_id` AND u.`user_id` = a.`article_user_id` AND a.category_id = #{categoryId} ORDER BY a.`article_update_time` DESC
+    </select>
+
+    <select id="getByTagId" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_title`, a.`article_image`, a.`article_view_count`, a.`article_update_time`, a.`article_summary`,
+               c.`category_name` cname, c.`category_id` cid,
+               t.`tag_name` tname, t.tag_id tid,
+               u.`user_nickname`, u.`user_avatar`
+        FROM article a, category c, USER u, article_tag_ref atr, tag t
+        WHERE a.`category_id` = c.`category_id` AND u.`user_id` = a.`article_user_id` AND atr.`article_id` = a.`article_id` AND atr.tag_id = t.tag_id AND t.tag_id = #{tagId}
+        ORDER BY a.`article_update_time` DESC
+    </select>
+
+    <!-- 后台博客展示 -->
+    <select id="getArticle" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_title`, a.`article_content`t, a.`category_id`,
+               a.`tag_id`, a.`article_image`, a.`article_summary`, a.`article_commend`,
+        FROM article a
+        WHERE  a.`article_id` = #{articleId};
+    </select>
+
+    <select id="getDetailedArticle" resultMap="ArticleMap">
+        SELECT a.`article_id`, a.`article_id`, a.`article_title`, a.`article_content`, a.`article_view_count`,
+               a.`article_update_time`,
+               u.`user_nickname`, u.`user_avatar`,
+               t. `tag_id` tid, t.`tag_name` tname
+        FROM article a, USER u, tag t, article_tag_ref atr
+        WHERE a.`article_user_id` = u.`user_id` AND atr.`article_id` = a.`article_id` AND atr.`tag_id` = t.tag_id AND  a.`article_id` = #{articleId}
+    </select>
+
+    <update id="updateArticle">
+        UPDATE article
+        SET article_title = #{articleTitle}, article_content = #{articleContent},
+            article_image = #{articleImage} , article_summary = #{articleSummary} , article_commend = #{articleCommend} ,
+            article_update_time = #{articleUpdateTime}
+        where article_id = #{articleId};
+    </update>
+
+    <insert id="saveArticle">
+        INSERT INTO article (article_title, article_content, article_image,
+                             article_view_count, article_commend, article_create_time, article_update_time,article_user_id, article_summary)
+        VALUES (#{article_title}, #{rticle_content}, #{article_image}, #{article_view_count}, #{article_commend},
+                #{article_create_time}, #{rticle_update_time}, #{article_user_id}, #{article_summary})
+    </insert>
+</mapper>

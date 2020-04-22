@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/common/admin_common_fragments::head(~{::title})">
+    <title>标签</title>
+</head>
+<div class="fly-marginTop" id="add" style="display: none;width: 650px;height: 400px" >
+    <div class="fly-panel" style="padding-top: 5px;padding-left: 25px">
+        <div class="layui-form layui-form-pane">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">新增标签</li>
+                </ul>
+                <div class="layui-form layui-tab-content" style="padding: 20px;">
+                    <div class="layui-tab-item layui-show">
+                        <form action="/admin/category" th:action="@{/admin/tag}" method="post">
+                            <div class="layui-row layui-col-space15 layui-form-item">
+                                <div class="layui-col-md12" style="padding-left: 20px;padding-right: 20px">
+                                    <label class="layui-form-label">标签名称</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" id="addcategory" name="tagName" required lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-lg-offset10">
+                                <button class="layui-btn" lay-filter="" lay-submit>提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<body>
+<!-- 头部 -->
+<div th:replace="/admin/common/admin_common_fragments::admin_top"></div>
+
+<div class="fly-panel">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li class="layui-hide-xs layui-this"><a href="/"></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="layui-container fly-marginTop">
+    <div class="fly-panel">
+        <div class="layui-tab layui-tab-brief" style="padding-top: 40px;padding-bottom: 40px" th:unless="${#strings.isEmpty(message)}">
+            <h2 align="center"><i class="layui-icon layui-icon-heart-fill" style="font-size: 40px"></i></h2>
+            <h2 align="center" th:text="${message}">恭喜，新增成功</h2>
+        </div>
+    </div>
+    <div class="fly-panel" style="padding-top: 5px;">
+        <div class="layui-tab layui-tab-brief" style="padding-left: 40px;padding-right: 40px">
+            <ul class="layui-tab-title">
+                <li class="layui-this">标签列表</li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <table class="layui-hide" id="tag" lay-filter="tag"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="toolbarTag">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon layui-icon-addition"></i>添加
+        </button>
+    </div>
+</script>
+
+<script type="text/html" id="tagBar">
+    <button class="layui-btn layui-btn-sm layui-btn-normal"  lay-event="edit">
+        <i class="layui-icon layui-icon-edit" ></i>编辑
+    </button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+<!-- 底部 -->
+<div th:replace="/common/common_fragments::footer"></div>
+
+<script src="./model/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/model/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+<script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
+<script src="./model/editormd/editormd.min.js" th:src="@{/model/editormd/editormd.min.js}"></script>
+<script>
+    layui.use(['table','laypage', 'layer','jquery'], function(){
+        var table = layui.table
+            , laypage = layui.laypage
+            , layer = layui.layer
+            , $ = layui.$;
+        //坑爹的thymeleaf
+        table.render({
+            elem: '#tag'
+            ,url:'/admin/getTags'
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.data.pageInfo.total, //解析数据长度
+                    "data": res.data.pageInfo.list //解析数据列表
+                }}
+            ,method:"GET"
+            ,request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            ,toolbar: '#toolbarTag' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                ,layEvent: 'LAYTABLE_TIPS'
+                ,icon: 'layui-icon-tips'
+            }]
+            ,title: 'Tag'
+            ,cols:[
+                [
+                {type: 'checkbox', fixed: 'left',width:80}
+                ,{field:'tagId', title:'ID', width:120, fixed: 'left', unresize: true, sort: true,align:'center'}
+                ,{field:'tagName', title:'标签', width:430 ,align: 'center'}
+                ,{fixed: 'right', title:'操作', toolbar: '#tagBar', width:450,align:'center'}
+                 ]
+            ]
+            ,page: true
+        });
+
+        //头工具栏事件
+        table.on('toolbar(tag)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                        layer.open({
+                            type: 1,
+                            title:"新增标签",
+                            closeBtn :1, //左上弹窗关闭按钮
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['700px', '400px'], //宽高
+                            content: $('#add')
+                        });
+                    break;
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('小朋友，这儿有糖吃……^_^');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(tag)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.prompt({
+                    formType: 0
+                    ,title: '删除 ID 为 ['+ data.tagId +'] 的分类'
+                    ,value: data.tagName
+                }, function(value, index){
+                    $.ajax({
+                        url: "/admin/getTag/" + data.tagId
+                        ,type: "DELETE"
+                        ,success: function (result) {
+                            if (result.code == 0){
+                                layer.close(index)
+                                obj.update({
+                                });
+                                alert(result.msg)
+                            }else {
+                                alert(result.msg)
+                            }
+                        }
+                    })
+                });
+            } else if(obj.event === 'edit'){
+                layer.prompt({
+                    formType: 0
+                    ,title: '修改 ID 为 ['+ data.tagId +'] 的分类'
+                    ,value: data.tagName
+                }, function(value, index){
+                    $.ajax({
+                        url: "/admin/getTag/" + data.tagId
+                        ,type: "PUT"
+                        ,data: {'tagId':data.tagId,'tagName':value}
+                        ,success: function (result) {
+                            if (result.code == 0){
+                                layer.close(index)
+                                obj.update({
+                                    tagName: value
+                                });
+                                alert(result.msg)
+                            }else {
+                                alert(result.msg)
+                            }
+                        }
+                    })
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

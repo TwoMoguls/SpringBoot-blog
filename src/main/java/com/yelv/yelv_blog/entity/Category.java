@@ -5,16 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 博客标签
+ * 博客类型
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+public class Category {
 
-    private Integer tagId;
+    private Integer categoryId;
 
-    private String tagName;
+    private String categoryName;
+
 
 }
