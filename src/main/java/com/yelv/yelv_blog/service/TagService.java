@@ -7,11 +7,11 @@ import java.util.List;
 public interface TagService {
     int saveTag(Tag tag);
 
-    Tag getTag(Integer tagId);
-
     Tag getTagByName(String tagName);
 
     List<Tag> getAllTags();
+
+    List<Tag> getArticleTag();
 
     int updateTag(Tag tag);
 

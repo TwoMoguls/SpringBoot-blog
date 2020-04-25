@@ -1,25 +1,33 @@
 package com.yelv.yelv_blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 博客评论
  */
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
 
     private Integer commentId;
-    private String stat;
-    private String email;
-    private String content;
-    private String avatar;
-    private Date createTime;
-    private Article blog;
-    private List<Comment> replyComments = new ArrayList<>();
-    private Comment parentComment;
+
+    private String commentAuthorAvatar;
+
+    private String commentContent;
+
+    private Date commentCreateTime;
+
+    private String commentAuthorName;
+
+    private Integer commentArticleId;
+
+    private Article article;
+
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/common_fragments::head(~{::title})">
+    <title>Yelv的博客</title>
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="/common/common_fragments::top(1)"></div>
+
+<div class="layui-container my-container-padding">
+    <div class="layui-row layui-col-space14 my-container-padding">
+        <div class="layui-col-md10 layui-col-md-offset1 content detail">
+            <div class="fly-panel detail-box">
+                <h1 align="center" th:text="${article.articleTitle}"></h1>
+                <div class="fly-detail-info">
+                    <span class="layui-badge layui-bg-green fly-detail-column">强烈推荐</span>
+                    <span class="layui-badge layui-bg-red">精彩好文</span>
+                    <span class="fly-list-nums">
+                        <a href="#comment">
+                            <i class="iconfont" title="回答">&#xe60c;</i> 66</a><i class="iconfont" title="人气">&#xe60b;</i> [[${article.articleViewCount}]]
+                    </span>
+                </div>
+                <div class="typo typo-selection detail-body photos animated fadeIn" th:utext="${article.articleContent}">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 底部 -->
+<div th:replace="/common/common_fragments::footer"></div>
+
+<script src="/model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
+<script src="/model/prism/prism.js" th:src="@{/model/prism/prism.js}"></script>
+
+</body>
+</html>

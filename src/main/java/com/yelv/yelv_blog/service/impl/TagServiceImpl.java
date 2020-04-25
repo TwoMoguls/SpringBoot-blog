@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 标签逻辑层
+ * 标签业务层
  */
 
 @Service
@@ -24,11 +24,6 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag getTag(Integer tagId) {
-        return tagMapper.getTag(tagId);
-    }
-
-    @Override
     public Tag getTagByName(String tagName) {
         return tagMapper.getTagByName(tagName);
     }
@@ -36,6 +31,11 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> getAllTags() {
         return tagMapper.getAllTags();
+    }
+
+    @Override
+    public List<Tag> getArticleTag() {
+        return tagMapper.getArticleTag();
     }
 
     @Override

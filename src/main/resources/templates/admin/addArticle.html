@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/common/admin_common_fragments::head(~{::title})">
+    <title>新增博客</title>
+</head>
+<body>
+<div class="layui-container">
+    <div class="fly-panel" pad20 style="padding-top: 10px;">
+        <div class="layui-form layui-form-pane">
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">发表新博客</li>
+                </ul>
+                <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                    <div class="layui-tab-item layui-show">
+                        <form id="article" lay-filter="article">
+                            <div class="layui-row layui-col-space15 layui-form-item">
+                                <div class="layui-col-md5">
+                                    <label class="layui-form-label">所在分类</label>
+                                    <div class="layui-input-block" id="categorySelect">
+                                        <select lay-verify="required" name="categoryId" lay-filter="categoryId">
+                                            <option></option>
+                                            <option name="categoryName" lay-verify="categoryName" th:each="category : ${categories}" value="" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">是否推荐</label>
+                                        <div class="layui-input-block">
+                                            <input type="checkbox" name="articleCommend" lay-skin="switch" lay-text="推荐|不推荐" checked="" lay-filter="articleCommend">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row layui-col-space15 layui-form-item">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">所属标签</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" th:each="tag : ${tags}" name="" th:name="${tag.tagName}" title="" th:title="${tag.tagName}" lay-filter="" th:lay-filter="${tag.tagName}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row layui-col-space15 layui-form-item">
+                                <div class="layui-col-md6">
+                                    <label for="article_title" class="layui-form-label">标题</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" id="article_title" name="articleTitle" required lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <div class="layui-input-block editormd" id="text_markdown">
+                                    <textarea class="editormd-markdown-textarea" name="id-markdown-doc" maxlength="300"></textarea>
+                                    <textarea class="editormd-html-textarea" name="id-html-code" maxlength="300"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md-offset9">
+                                <button class="layui-btn" id="submitArticle" lay-filter="submitArticle" lay-submit>立即发布</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./model/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/model/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+<script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
+<script src="./model/editormd/editormd.min.js" th:src="@{/model/editormd/editormd.min.js}"></script>
+<script type="text/javascript">
+    layui.use(['form'], function(){
+        var form = layui.form
+        /*// 分类构建
+        $.ajax({
+            url:"/admin/getAllCategories",
+            type:"GET",
+            success:function(result){
+
+                var cg = result.data.categories;
+                var empty_option = $("<option></option>")
+                var all = $.each(cg,function (index,item) {
+                    $("<option></option>").append(item.categoryName)
+
+                })
+                $("<select lay-verify='required' name='class' lay-filter='column'></select>")
+                .append(empty_option).append(all).appendTo("#categorySelect")
+            }
+        });*/
+
+        //初始化Markdown编辑器
+        var contentEditor = editormd("text_markdown", {
+            width : "100%",
+            height: 640,
+            saveHTMLToTextarea : true,
+            syncScrolling : "single",
+            path : "/model/editormd/lib/"
+        });
+
+        form.on('submit(submitArticle)', function(data){
+            // alert(JSON.stringify(data))
+            // 所需标签字段预处理
+            var data1 = data.field
+            var tagList = []
+            $.each(data1,function (name,value) {
+                if (value == 'on'){
+                    tagList.push(name)
+                }
+            })
+            tagList.splice(0,1)
+            tagList = tagList.join(',')
+            // alert(tagList)
+            // 获取 Textarea 保存的 HTML 源码
+            var article_context = contentEditor.getHTML();
+            //截取文章内容中的一部分文字放入文章摘要
+            alert(article_context)
+            var summary = article_context.substring(0,200);
+            //弹出loading
+            // var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            //提交的信息
+            $.post("/admin/article",{
+                articleTitle : $("#article_title").val(),  //文章标题
+                articleSummary : summary,  //文章摘要
+                articleContent : article_context,  //文章内容
+                articleCategoryId : data.field.categoryId,    //文章分类
+                articleCommend : data.field.articleCommend,    //是否推荐
+                tagList : tagList,    //标签
+            },function(result){
+                alert(result)
+                if (result.msg == 0){
+                    top.layer.close(index);
+                    layer.alert('新增成功…………^ o ^', {icon: 6});
+                }else {
+                    top.layer.close(index);
+                    layer.alert('新增失败…………^ o ^', {icon: 5});
+                }
+            })
+            // return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+</script>
+</body>
+</html>

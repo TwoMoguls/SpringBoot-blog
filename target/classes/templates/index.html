@@ -5,7 +5,7 @@
 </head>
 <body>
 <!-- 头部 -->
-<div th:replace="/common/common_fragments::top"></div>
+<div th:replace="/common/common_fragments::top(1)"></div>
 
 <div class="layui-container my-container-padding">
     <div class="layui-carousel layui-col-space2 my-container-padding" id="circle">
@@ -26,106 +26,37 @@
                     <div class="fly-panel-title fly-filter">
                         <p style="color: #009f95;font-size: 20px">博客</p>
                         <span class="fly-filter-right layui-hide-xs">
-                        <p style="color: #009f95;font-size: 18px">共 <span style="font-size: 20px">14</span> 篇</p>
+                        <p style="color: #009f95;font-size: 18px">共 <span style="font-size: 25px" th:text="${pageInfo.total}">14</span> 篇</p>
                     </span>
                     </div>
                     <hr class="layui-bg-red my-hr-op">
                 </div>
-                <div class="layui-card">
+                <div class="layui-card" th:each="article : ${pageInfo.list}" style="height: 300px">
                     <div class="layui-card-body">
                         <div class="layui-col-space8">
                             <div class="layui-col-md3 my-card-leftbody">
-                                <img class="my-image" src="https://images.unsplash.com/photo-1502989642968-94fbdc9eace4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
+                                <img class="my-image" src="/image/springboot.jpg" th:src="@{${article.articleImage}}">
                             </div>
                             <div class="layui-col-md9 my-card-rightbody">
                                 <div>
-                                    <a href="#">
-                                    <h3>Mysql</h3>
+                                    <a href="#" th:href="@{/article/{id}(id=${article.articleId})}">
+                                    <h3 th:text="${article.articleTitle}"></h3>
                                     <hr>
-                                    <p class="my-text">学生表 Student(SId,Sname,Sage,Ssex) --SId 学生编号, Sname 学生姓名, Sage 出生年月, Ssex 学生性别
-                                        MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+                                    <p class="my-text"  th:text="|${article.articleSummary}......|"></p>
                                     </a>
                                 </div>
                                 <div>
                                     <div class="layui-col-md2">
-                                        <img class="my-image-user my-pa-th" src="../static/image/admin.jpg"><span class="my-font-size"><a href="#">叶吕</a></span>
+                                        <img class="my-image-user my-pa-th" src="./image/admin.jpg"><span class="my-font-size"><a href="#" th:text="${article.user.userNickname}">叶吕</a></span>
                                     </div>
                                     <div class="layui-col-md2">
-                                        <i class="layui-icon layui-icon-date my-pa-th"></i><span class="my-font-size">2020-02-02</span>
+                                        <i class="layui-icon layui-icon-date my-pa-th"></i><span class="my-font-size" th:text="${#dates.format(article.articleUpdateTime, 'yyyy-MM-dd')}">2020-02-02</span>
                                     </div>
                                     <div class="layui-col-md2">
-                                        <i class="fa fa-eye my-pa-th"></i><span class="my-font-size">200</span>
+                                        <i class="fa fa-eye my-pa-th"></i><span class="my-font-size" th:text="${article.articleViewCount}">200</span>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <a href="#" target="_blank" ><span class="layui-badge">学习方法</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="layui-bg-red my-hr-op">
-                </div>
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-col-space8">
-                            <div class="layui-col-md3 my-card-leftbody">
-                                <img class="my-image" src="https://images.unsplash.com/photo-1502989642968-94fbdc9eace4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
-                            </div>
-                            <div class="layui-col-md9 my-card-rightbody">
-                                <div>
-                                    <a href="#">
-                                        <h3>Mysql</h3>
-                                        <hr>
-                                        <p class="my-text">学生表 Student(SId,Sname,Sage,Ssex) --SId 学生编号, Sname 学生姓名, Sage 出生年月, Ssex 学生性别
-                                            MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <div class="layui-col-md2">
-                                        <img class="my-image-user my-pa-th" src="../static/image/admin.jpg"><span class="my-font-size"><a href="#">叶吕</a></span>
-                                    </div>
-                                    <div class="layui-col-md2">
-                                        <i class="layui-icon layui-icon-date my-pa-th"></i><span class="my-font-size">2020-02-02</span>
-                                    </div>
-                                    <div class="layui-col-md2">
-                                        <i class="fa fa-eye my-pa-th"></i><span class="my-font-size">200</span>
-                                    </div>
-                                    <div class="layui-col-md6">
-                                        <a href="#" target="_blank" ><span>学习方法</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="layui-bg-red my-hr-op">
-                </div>
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-col-space8">
-                            <div class="layui-col-md3 my-card-leftbody">
-                                <img class="my-image" src="https://images.unsplash.com/photo-1502989642968-94fbdc9eace4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
-                            </div>
-                            <div class="layui-col-md9 my-card-rightbody">
-                                <div>
-                                    <a href="#">
-                                        <h3>Mysql</h3>
-                                        <hr>
-                                        <p class="my-text">学生表 Student(SId,Sname,Sage,Ssex) --SId 学生编号, Sname 学生姓名, Sage 出生年月, Ssex 学生性别
-                                            MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
-                                    </a>
-                                </div>
-                                <div>
-                                    <div class="layui-col-md2">
-                                        <img class="my-image-user my-pa-th" src="../static/image/admin.jpg"><span class="my-font-size"><a href="#">叶吕</a></span>
-                                    </div>
-                                    <div class="layui-col-md2">
-                                        <i class="layui-icon layui-icon-date my-pa-th"></i><span class="my-font-size">2020-02-02</span>
-                                    </div>
-                                    <div class="layui-col-md2">
-                                        <i class="fa fa-eye my-pa-th"></i><span class="my-font-size">200</span>
-                                    </div>
-                                    <div class="layui-col-md6">
-                                        <a href="#" target="_blank" ><span>学习方法</span></a>
+                                        <a href="#" th:href="@{/categories/{categoryId}(categoryId=${article.category.categoryId})}" target="_blank" ><span class="layui-badge" th:text="${article.category.categoryName}">学习方法</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -135,9 +66,9 @@
                 </div>
                 <div class="fly-panel">
                     <div class="fly-panel-title fly-filter">
-                        <a href="#" style="color: #009f95;font-size: 20px">上一页</a>
+                        <a href="#" th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" style="color: #009f95;font-size: 20px">上一页</a>
                         <span class="fly-filter-right layui-hide-xs">
-                        <a href="#" style="color: #009f95;font-size: 18px">下一页</a>
+                        <a href="#" th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" style="color: #009f95;font-size: 18px">下一页</a>
                     </span>
                     </div>
                 </div>
@@ -162,14 +93,11 @@
         carousel.render({
             elem: '#circle'
             , width: '100%' //设置容器宽度
-            , height: '260px' 	//设定轮播容器高度，支持像素和百分比
+            , height: '300px' 	//设定轮播容器高度，支持像素和百分比
             , arrow: 'always' //始终显示箭头
             //,anim: 'updown' //切换动画方式
         });
     });
-    layui.config({
-        base: '/model/layui/lay/modules/' //你的扩展模块所在目录
-    }).use('form'); //这里的 main 模块包含了 mod1、mod2、mod3 等等扩展模块，看官方文档
 </script>
 </body>
 </html>

@@ -23,4 +23,5 @@ logging:
   file:
     name: log/blog.log
 server:
+  max-http-header-size: 2048000
   port: 8080

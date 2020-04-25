@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 博客实体
+ * 文章实体
  */
 
 @Data
@@ -31,8 +31,15 @@ public class Article {
 
     private String articleSummary;
 
-    private  boolean article_commend;
+    private  boolean articleCommend;
 
     private String articleImage;
 
+    private Integer articleCategoryId;
+
+    private User user;
+
+    private Tag tag;
+
+    private Category category;
 }

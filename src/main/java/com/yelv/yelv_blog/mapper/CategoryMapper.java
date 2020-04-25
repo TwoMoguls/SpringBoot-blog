@@ -14,19 +14,19 @@ public interface CategoryMapper {
     int saveCategory(Category category);
 
     @Select("select id,name from category where category_id = #{categoryId}")
-    Category getCategory(Integer categoryId);
+    Category getCategory(@Param("categoryId") Integer categoryId);
 
     @Select("select * from Category where category_name = #{categoryName}")
-    Category getCategoryByName(String categoryName);
+    Category getCategoryByName(@Param("categoryName") String categoryName);
 
     @Select("select * from category")
     List<Category> getAllCategory();
 
-//    List<Category> getBlogType();  //首页右侧展示type对应的博客数量
+    List<Category> getArticleCategory();
 
     @Update("update category set category_name = #{categoryName} where category_id = #{categoryId};")
     int updateCategory(Category category);
 
     @Delete("delete from category where category_id = #{categoryId}")
-    int deleteCategory(Integer categoryId);
+    int deleteCategory(@Param("categoryId") Integer categoryId);
 }

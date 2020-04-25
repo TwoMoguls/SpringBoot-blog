@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 /**
- * 用户逻辑层
+ * 用户业务层
  */
 @Service
 public class UserServiceImpl implements UserService {

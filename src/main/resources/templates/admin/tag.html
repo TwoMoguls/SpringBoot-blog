@@ -35,15 +35,6 @@
 <!-- 头部 -->
 <div th:replace="/admin/common/admin_common_fragments::admin_top"></div>
 
-<div class="fly-panel">
-    <div class="layui-container">
-        <ul class="layui-clear">
-            <li class="layui-hide-xs layui-this"><a href="/"></a></li>
-        </ul>
-
-    </div>
-</div>
-
 <div class="layui-container fly-marginTop">
     <div class="fly-panel">
         <div class="layui-tab layui-tab-brief" style="padding-top: 40px;padding-bottom: 40px" th:unless="${#strings.isEmpty(message)}">

@@ -13,36 +13,27 @@
     <link rel="stylesheet" href="./model/prism/prism.css" th:href="@{/model/prism/prism.css}">
 </head>
 <body>
-<div class="fly-header layui-bg-cyan" th:fragment="top">
-    <div class="layui-container ">
+<div class="fly-header my-topbg-cl" th:fragment="top(n)">
+    <div class="layui-container">
         <div class="fly-logo">
             <h1 style="color: #009f95">YeLv-Blog</h1>
         </div>
         <ul class="layui-nav fly-nav layui-hide-xs">
-            <li class="layui-nav-item layui-this">
-                <a href="/" target="_blank" th:href="@{/}"><i class="layui-icon layui-icon-home my-icon-style"></i>首页</a>
+            <li class="layui-nav-item" th:classappend="${n==1}?'layui-this'">
+                <a href="#" th:href="@{/}" target="_blank" class="my-icon-style"><i class="layui-icon layui-icon-home"></i>首页</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank" th:href="@{/home/type}"><i class="layui-icon layui-icon-form my-icon-style"></i>分类</a>
+            <li class="layui-nav-item" th:classappend="${n==2}?'layui-this'">
+                <a href="#" th:href="@{/categories/-1}" target="_blank" class="my-icon-style"><i class="layui-icon layui-icon-form"></i>分类</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank" th:href="@{/home/type}"><i class="layui-icon layui-icon-note my-icon-style"></i>标签</a>
+            <li class="layui-nav-item" th:classappend="${n==3}?'layui-this'">
+                <a href="#" th:href="@{/tags/-1}" target="_blank" class="my-icon-style"><i class="layui-icon layui-icon-note"></i>标签</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank" th:href= "@{/home/type}"><i class="layui-icon layui-icon-next my-icon-style"></i>时间线</a>
+            <li class="layui-nav-item" th:classappend="${n==4}?'layui-this'">
+                <a href="#" th:href="@{/archives}" target="_blank" class="my-icon-style"><i class="layui-icon layui-icon-next"></i>时间线</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="#" target="_blank" th:href= "@{/home/type}"><i class="layui-icon layui-icon-tips my-icon-style"></i>关于我</a>
+            <li class="layui-nav-item" th:classappend="${n==5}?'layui-this'">
+                <a href="#"  th:href="@{/about}" target="_blank" class="my-icon-style"><i class="layui-icon layui-icon-tips"></i>关于我</a>
             </li>
-        </ul>
-
-        <ul class="layui-nav fly-nav-user">
-
-            <li class="layui-nav-item">
-                <input type="text" style="height: 30px;width: 200px;opacity: 40%" placeholder="  Serach...">
-                <i class="layui-icon layui-icon-search my-icon-style"></i>
-            </li>
-
         </ul>
     </div>
 </div>
@@ -72,34 +63,24 @@
     <div class="fly-panel">
         <h3 class="fly-panel-title"><i class="layui-icon layui-icon-note"></i>&emsp;标签</h3>
         <div class="my-btn">
-            <div class="my-btn-th">
-                <button type="button" class="layui-btn layui-btn-primary">Java <span class="layui-badge layui-bg-green">灰</span></button>
-                <button type="button" class="layui-btn layui-btn-primary">前端 <span class="layui-badge layui-bg-green">灰</span></button>
-            </div>
-            <div class="my-btn-th">
-                <button type="button" class="layui-btn layui-btn-primary">前端layui<span class="layui-badge layui-bg-green">灰</span></button>
-                <button type="button" class="layui-btn layui-btn-primary">mysql<span class="layui-badge layui-bg-green">灰</span></button>
+            <div class="layui-btn-container my-btn-th">
+                <a th:each="tag : ${tags}" th:href="@{/tags/{tagId}(tagId=${tag.tagId})}" class="layui-btn layui-btn-primary">
+                       [[${tag.tagName}]] ……^ o ^……
+                    <span class="layui-badge layui-bg-orange" th:text="${#arrays.length(tag.articles)}"></span>
+                </a>
+
             </div>
         </div>
 
     </div>
-    <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
+    <div class="fly-panel">
         <h3 class="fly-panel-title"><i class="fa fa-bookmark"></i>&emsp;最新推荐</h3>
-        <dl>
+        <ul class="fly-panel-main fly-list-static">
             <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->
-            <dd>
-
-            </dd>
-            <dd>
-
-            </dd>
-            <dd>
-
-            </dd>
-            <dd>
-
-            </dd>
-        </dl>
+            <li th:each="cd : ${commend}">
+                <a href="" th:href="@{/article/{id}(id=${cd.articleId})}" th:text="${cd.articleTitle}" ></a>
+            </li>
+        </ul>
     </div>
 
     <div class="fly-panel">
@@ -109,14 +90,8 @@
         <div class="fly-panel-main">
             <br>
 
-            <a href="#" target="_blank" class="fly-zanzhu"
-               time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">哈哈^ o ^宝藏位置 * _ *</a>
+            <a href="#" target="_blank" class="fly-zanzhu" style="background-color: #5FB878;">哈哈^ o ^宝藏位置 * _ *</a>
         </div>
-    </div>
-
-    <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-        <img src="../../res/images/weixin.jpg" style="max-width: 100%;" alt="layui">
-        <p style="position: relative; color: #666;">这儿或许应该干点什么</p>
     </div>
 </div>
 

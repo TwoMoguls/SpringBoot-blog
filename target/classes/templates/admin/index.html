@@ -7,18 +7,15 @@
 <!-- 头部 -->
 <div th:replace="/admin/common/admin_common_fragments::admin_top"></div>
 
-<div class="fly-panel fly-column">
-    <div class="layui-container">
-        <ul class="layui-clear">
-            <li class="layui-hide-xs"><a href="/">列表</a></li>
-            <li><a href="jie/index.html">发表</a></li>
-        </ul>
-
-    </div>
-</div>
-
 <div class="layui-container fly-marginTop">
     <div class="fly-panel" pad20 style="padding-top: 5px;">
+        <div class="fly-panel" style="padding-top: 5px;">
+            <div class="layui-tab layui-tab-brief" style="padding-left: 40px;padding-right: 40px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">后台首页</li>
+                </ul>
+            </div>
+        </div>
         <div class="layui-form layui-form-pane" style="padding-top: 20px">
             <blockquote class="layui-elem-quote layui-bg-green">
                 <div id="nowTime"></div>

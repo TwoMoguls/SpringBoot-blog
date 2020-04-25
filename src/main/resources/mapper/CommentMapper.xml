@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yelv.yelv_blog.mapper.CommentMapper">
+    <resultMap id="CommentMap" type="com.yelv.yelv_blog.mapper.CommentMapper">
+        <id property="commentId" column="comment_id"/>
+        <result property="commentAuthorAvatar" column="comment_author_avatar"/>
+        <result property="commentContent" column="comment_content"/>
+        <result property="commentCreateTime" column="comment_create_time"/>
+        <result property=" commentAuthorName" column=" comment_author_name"/>
+        <result property="articleCommentId" column="article_comment_id"/>
+        <association property="article" javaType="com.yelv.yelv_blog.entity.Article">
+            <id property="articleId" column="article_id"/>
+        </association>
+    </resultMap>
+
+    <insert id="saveComment">
+        INSERT INTO comment (comment_id,comment_author_avatar,comment_content,
+                             comment_create_time,comment_author_name,article_comment_id)
+        VALUES (#{commentId},#{commentAuthorAvatar},#{commentContent},
+                #{commentCreateTime},#{commentAuthorName},#{articleCommentId})
+    </insert>
+
+    <select id="getCommentByArticleId" resultMap="CommentMap">
+        SELECT comment_id,comment_author_name,comment_content,comment_author_avatar,
+               comment_create_time,article_comment_id
+        FROM COMMENT, article
+        WHERE article_comment_id = article_id AND article_comment_id = #{articleId}
+        ORDER BY comment_create_time DESC
+    </select>
+</mapper>

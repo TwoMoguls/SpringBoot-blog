@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yelv.yelv_blog.mapper.CategoryMapper">
+    <resultMap id="Categories" type="com.yelv.yelv_blog.entity.Category">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <collection property="articles" ofType="com.yelv.yelv_blog.entity.Article">
+            <id property="articleId" column="article_id"/>
+            <result property="articleTitle" column="article_title"/>
+            <result property="articleCategoryId" column="article_category_id"/>
+        </collection>
+    </resultMap>
+
+    <select id="getArticleCategory" resultMap="Categories">
+        SELECT category_id, category_name, article_id, article_title, article_category_id
+        FROM category, article
+        WHERE category_id = article_category_id
+    </select>
+</mapper>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/common/common_fragments::head(~{::title})">
-    <title>标签</title>
+    <title>分类</title>
 </head>
 <body>
 <!-- 头部 -->
-<div th:replace="/common/common_fragments::top(3)"></div>
+<div th:replace="/common/common_fragments::top(2)"></div>
 
 <div class="layui-container my-container-padding">
     <div class="layui-row layui-col-space14 my-container-padding">
@@ -13,23 +13,23 @@
             <div class="fly-panel detail-box">
                 <div class="fly-panel">
                     <div class="fly-panel-title fly-filter">
-                        <p style="color: #009f95;font-size: 20px">标签</p>
+                        <p style="color: #009f95;font-size: 20px">分类</p>
                         <span class="fly-filter-right layui-hide-xs">
-                                <p style="color: #009f95;font-size: 18px">共 <span style="font-size: 25px" th:text="${#arrays.length(tags)}">14</span> 种</p>
+                                <p style="color: #009f95;font-size: 18px">共 <span th:text="${#arrays.length(categories)}" style="font-size: 25px">14</span> 种</p>
                             </span>
                     </div>
                 </div>
                 <div class="layui-btn-container my-type-th">
-                    <a th:each="tag : ${tags}" th:href="@{/tags/{tagId}(tagId=${tag.tagId})}"  class="layui-btn layui-btn-primary" th:classappend="${tag.tagId==activeTagId} ? 'my-btnbg'">
-                        [[${tag.tagName}]]
-                        <span class="layui-badge layui-bg-orange" th:text="${#arrays.length(tag.articles)}"></span>
+                    <a th:each="category : ${categories}" th:href="@{/categories/{categoryId}(categoryId=${category.categoryId})}"  class="layui-btn layui-btn-primary" th:classappend="${category.categoryId==activeArticleId} ? 'my-btnbg'">
+                        [[${category.categoryName}]]
+                        <span class="layui-badge layui-bg-orange" th:text="${#arrays.length(category.articles)}"></span>
                     </a>
                 </div>
             </div>
 
             <div class="fly-panel detail-box">
                 <div class="fly-panel">
-                    <div class="layui-card" th:each="article : ${pageInfo.list}">
+                    <div class="layui-card"  th:each="article : ${pageInfo.list}">
                         <div class="layui-card-body">
                             <div class="layui-col-space8">
                                 <div class="layui-col-md3 my-card-leftbody">
@@ -45,7 +45,7 @@
                                     </div>
                                     <div>
                                         <div class="layui-col-md2">
-                                            <img class="my-image-user my-pa-th" src="/image/admin.jpg"><span class="my-font-size"><a href="#" th:text="${article.user.userNickname}">叶吕</a></span>
+                                            <img class="my-image-user my-pa-th" src="../static/image/admin.jpg"><span class="my-font-size"><a href="#" th:text="${article.user.userNickname}">叶吕</a></span>
                                         </div>
                                         <div class="layui-col-md2">
                                             <i class="layui-icon layui-icon-date my-pa-th"></i><span class="my-font-size" th:text="${#dates.format(article.articleUpdateTime, 'yyyy-MM-dd')}">2020-02-02</span>
@@ -54,7 +54,7 @@
                                             <i class="fa fa-eye my-pa-th"></i><span class="my-font-size" th:text="${article.articleViewCount}">200</span>
                                         </div>
                                         <div class="layui-col-md6">
-                                            <a href="#" target="_blank" th:href="@{/categories/{categoryId}(categoryId=${article.category.categoryId})}"><span class="layui-badge" th:text="${article.category.categoryName}">学习方法</span></a>
+                                            <a href="#" target="_blank" th:href="@{/categories/{categoryId}(categoryId=${article.category.categoryId})}"><span>学习方法</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -116,6 +115,6 @@
 <!-- 底部 -->
 <div th:replace="/common/common_fragments::footer"></div>
 
-<script src="../static/model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
+<script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
 </body>
 </html>

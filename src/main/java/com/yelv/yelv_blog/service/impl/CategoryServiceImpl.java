@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 分类逻辑层
+ * 分类业务层
  */
 
 @Service
@@ -51,5 +51,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Integer categoryId) {
         categoryMapper.deleteCategory(categoryId);
+    }
+
+    @Override
+    public List<Category> getArticleCategory() {
+        return categoryMapper.getArticleCategory();
     }
 }

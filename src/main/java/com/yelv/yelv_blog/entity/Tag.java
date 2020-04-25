@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 博客标签
  */
@@ -17,4 +20,5 @@ public class Tag {
 
     private String tagName;
 
+    private List<Article> articles = new ArrayList<>();
 }

@@ -1,11 +1,12 @@
 package com.yelv.yelv_blog.service.impl;
 
 import com.yelv.yelv_blog.entity.Article;
+import com.yelv.yelv_blog.mapper.ArticleMapper;
 import com.yelv.yelv_blog.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 文章业务层
@@ -13,59 +14,53 @@ import java.util.Map;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-    @Override
-    public Article getArticle(Integer id) {
-        return null;
-    }
 
-    @Override
-    public Article getDetailedArticle(Integer id) {
-        return null;
-    }
-
-    @Override
-    public List<Article> getAllArticle() {
-        return null;
-    }
-
-    @Override
-    public List<Article> getByTypeId(Integer categoryId) {
-        return null;
-    }
-
-    @Override
-    public List<Article> getByTagId(Integer tagId) {
-        return null;
-    }
-
-    @Override
-    public List<Article> getIndexArticle() {
-        return null;
-    }
-
-    @Override
-    public List<Article> getAllRecommendArticle() {
-        return null;
-    }
-
-    @Override
-    public List<Article> getSearchArticle(String query) {
-        return null;
-    }
-
-    @Override
-    public Map<String, List<Article>> archiveArticle() {
-        return null;
-    }
+    @Autowired
+    ArticleMapper articleMapper;
 
     @Override
     public int countArticle() {
-        return 0;
+        return articleMapper.countArticle();
+    }
+
+    @Override
+    public Article getArticleByTitle(String articleTitle) {
+        return articleMapper.getArticleByTitle(articleTitle);
     }
 
     @Override
     public int saveArticle(Article article) {
-        return 0;
+        return articleMapper.saveArticle(article);
+    }
+
+    @Override
+    public List<Article> getAllArticle() {
+        return articleMapper.getAllArticle();
+    }
+
+    @Override
+    public List<Article> getAllRecommendArticle() {
+        return articleMapper.getAllRecommendArticle();
+    }
+
+    @Override
+    public Article getDetailedArticle(Integer articleId) {
+        return articleMapper.getDetailedArticle(articleId);
+    }
+
+    @Override
+    public List<Article> getByCategoryId(Integer categoryId) {
+        return articleMapper.getByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Article> getIndexArticle() {
+        return articleMapper.getIndexArticle();
+    }
+
+    @Override
+    public List<Article> getByTagId(Integer tagId) {
+        return articleMapper.getByTagId(tagId);
     }
 
     @Override
@@ -79,7 +74,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> searchAllArticle(Article article) {
+    public Article getArticle(Integer id) {
         return null;
     }
+
+
 }

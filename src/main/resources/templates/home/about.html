@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/common_fragments::head(~{::title})">
+    <title>关于我</title>
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="/common/common_fragments::top(5)"></div>
+
+
+<div class="layui-container my-container-padding">
+    <div class="layui-row layui-col-space14 my-container-padding">
+        <div class="layui-col-md10 layui-col-md-offset1 content detail">
+            <div class="fly-panel detail-box">
+                <div class="fly-panel">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend align="center">关于我</legend>
+                    </fieldset>
+                    <br>
+                    <br>
+                    <div align="center">
+                        <p style="font-size: 20px">
+                            该客栈主人白纸一张，<span style="color: #A7A7A7;opacity: 80%"><em>"哈哈……^ o ^反正我是不信"</em></span>，或许会有点什么………
+                        </p>
+                        <br><i class="layui-icon layui-icon-heart" style="font-size: 100px;color: red;opacity: 70%"></i>
+                        <br>
+                        <P style="font-size: 20px">
+                            路漫漫其修远兮，吾将上下而求索，将来或许会有很多的东西，欢迎关注我的<a target="_blank" href="https://github.com/yejenlv" style="font-size: 25px;padding-left: 10px">Github<i class="fa fa-github"></i></a>
+                        </P>
+
+                     </div>
+                    <br>
+                    <br>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend align="center">扫码可能加到我哦^ ^</legend>
+                    </fieldset>
+                    <div align="center">
+                        <img src="/image/weixin.jpg" style="width: 200px;height: 200px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部 -->
+<div th:replace="/common/common_fragments::footer"></div>
+
+</body>
+</html>

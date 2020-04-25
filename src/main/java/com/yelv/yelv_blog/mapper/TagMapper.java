@@ -14,10 +14,10 @@ public interface TagMapper {
     int saveTag(Tag tag);
 
     @Select("select id,name from tag where tag_id = #{tagId}")
-    Tag getTag(Integer tagId);
+    Tag getTag(@Param("tagId") Integer tagId);
 
     @Select("select * from tag where tag_name = #{tagName}")
-    Tag getTagByName(String tagName);
+    Tag getTagByName(@Param("tagName") String tagName);
 
     @Select("select * from tag")
     List<Tag> getAllTags();
@@ -26,5 +26,7 @@ public interface TagMapper {
     int updateTag(Tag tag);
 
     @Delete("delete from tag where tag_id = #{tagId}")
-    void deleteTag(Integer tagId);
+    void deleteTag(@Param("tagId") Integer tagId);
+
+    List<Tag> getArticleTag();
 }

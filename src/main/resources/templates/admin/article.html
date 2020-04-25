@@ -1,71 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/admin/common/admin_common_fragments::head(~{::title})">
-    <title>博客</title>
+    <title>分类</title>
 </head>
 <body>
 <!-- 头部 -->
 <div th:replace="/admin/common/admin_common_fragments::admin_top"></div>
 
-<div class="fly-panel fly-column">
-    <div class="layui-container">
-        <ul class="layui-clear">
-            <li class="layui-hide-xs layui-this"><a href="/">博客发表</a></li>
-        </ul>
-    </div>
-</div>
-
 <div class="layui-container fly-marginTop">
-    <div class="fly-panel" pad20 style="padding-top: 10px;">
-        <div class="layui-form layui-form-pane">
-            <div class="layui-tab layui-tab-brief" lay-filter="user">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">发表新博客</li>
-                </ul>
-                <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
-                    <div class="layui-tab-item layui-show">
-                        <form action="" method="post">
-                            <div class="layui-row layui-col-space15 layui-form-item">
-                                <div class="layui-col-md3">
-                                    <label class="layui-form-label">所在专栏</label>
-                                    <div class="layui-input-block">
-                                        <select lay-verify="required" name="class" lay-filter="column">
-                                            <option></option>
-                                            <option value="0">提问</option>
-                                            <option value="99">分享</option>
-                                            <option value="100">讨论</option>
-                                            <option value="101">建议</option>
-                                            <option value="168">公告</option>
-                                            <option value="169">动态</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="layui-col-md9">
-                                    <label for="L_title" class="layui-form-label">标题</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-                                        <!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item layui-form-text">
-                                <div class="layui-input-block" id="text-markdown">
-                                    <textarea name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <button class="layui-btn" lay-filter="*" lay-submit>返回</button>
-                                <button class="layui-btn" lay-filter="*" lay-submit>保存</button>
-                                <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="fly-panel" style="padding-top: 5px;">
+        <div class="layui-tab layui-tab-brief" style="padding-left: 40px;padding-right: 40px">
+            <ul class="layui-tab-title">
+                <li class="layui-this">博客列表</li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <table class="layui-hide" id="article" lay-filter="article"></table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/html" id="toolbarArticle">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon layui-icon-addition"></i>添加
+        </button>
+    </div>
+</script>
+
+<script type="text/html" id="articleBar">
+    <button class="layui-btn layui-btn-sm layui-btn-normal"  lay-event="edit">
+        <i class="layui-icon layui-icon-edit" ></i>编辑
+    </button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
 
 <!-- 底部 -->
 <div th:replace="/common/common_fragments::footer"></div>
@@ -73,21 +45,124 @@
 <script src="./model/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/model/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
 <script src="./model/layui/layui.js" th:src="@{/model/layui/layui.js}"></script>
 <script src="./model/editormd/editormd.min.js" th:src="@{/model/editormd/editormd.min.js}"></script>
-<script type="text/javascript">
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate;
-    });
+<script>
+    layui.use(['table','laypage', 'layer','jquery'], function(){
+        var table = layui.table
+            , laypage = layui.laypage
+            , layer = layui.layer
+            , $ = layui.$;
+        //坑爹的thymeleaf
+        table.render({
+            elem: '#article'
+            ,url:'/admin/getArticle'
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.data.pageInfo.total, //解析数据长度
+                    "data": res.data.pageInfo.list //解析数据列表
+                }}
+            ,method:"GET"
+            ,request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            ,toolbar: '#toolbarArticle' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                ,layEvent: 'LAYTABLE_TIPS'
+                ,icon: 'layui-icon-tips'
+            }]
+            ,title: '文章'
+            ,cols:[
+                [
+                {type: 'checkbox', fixed: 'left',width:50}
+                ,{field:'articleId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true,align:'center'}
+                ,{field:'articleTitle', title:'文章标题', align: 'center'}
+                ,{field:'articleUpdateTime', title:'更新日期' ,align: 'center'}
+                ,{field:'articleCommend', title:'是否推荐', align: 'center'}
+                ,{field:'articleCategoryId', title:'文章分类' ,align: 'center'}
+                ,{field:'CategoryName', title:'分类名' ,align: 'center'}
+                ,{fixed: 'right', title:'操作',toolbar: '#articleBar', width:200,align:'center'}
+                 ]
+            ]
+            ,page: true
+        });
 
-    //初始化Markdown编辑器
-    $(function() {
-        var contentEditor = editormd("text-markdown", {
-            width : "100%",
-            height: 640,
-            syncScrolling : "single",
-            path : "/model/editormd/lib/"
+        //头工具栏事件
+        table.on('toolbar(article)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                        layer.open({
+                            type: 2,
+                            title:"发表博客",
+                            closeBtn :1, //左上弹窗关闭按钮
+                            scrollbar: false,
+                            area:['1200px','600px'],
+                            skin: 'layui-layer-rim', //加上边框
+                            content: '/admin/addArticle',
+                            success:function () {
+
+                            }
+                        });
+                    break;
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('小朋友，这儿有糖吃……^_^');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(article)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                // layer.prompt({
+                //     formType: 0
+                //     ,title: '删除 ID 为 ['+ data.categoryId +'] 的分类'
+                //     ,value: data.categoryName
+                // }, function(value, index){
+                //     $.ajax({
+                //         url: "/admin/getCategory/" + data.categoryId
+                //         ,type: "DELETE"
+                //         ,success: function (result) {
+                //             if (result.code == 0){
+                //                 layer.close(index)
+                //                 obj.update({
+                //                 });
+                //                 alert(result.msg)
+                //             }else {
+                //                 alert(result.msg)
+                //             }
+                //         }
+                //     })
+                // });
+            } else if(obj.event === 'edit'){
+                // layer.prompt({
+                //     formType: 0
+                //     ,title: '修改 ID 为 ['+ data.categoryId +'] 的分类'
+                //     ,value: data.categoryName
+                // }, function(value, index){
+                //     $.ajax({
+                //         url: "/admin/getCategory/" + data.categoryId
+                //         ,type: "PUT"
+                //         ,data: {'categoryId':data.categoryId,'categoryName':value}
+                //         ,success: function (result) {
+                //             if (result.code == 0){
+                //                 layer.close(index)
+                //                 obj.update({
+                //                     categoryName: value
+                //                 });
+                //                 alert(result.msg)
+                //             }else {
+                //                 alert(result.msg)
+                //             }
+                //         }
+                //     })
+                // });
+            }
         });
     });
 </script>

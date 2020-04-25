@@ -9,18 +9,28 @@ import java.util.Date;
 /**
  * 用户实体
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     private Integer userId;
+
     private String userName;
-    private String userNickName;
+
+    private String userNickname;
+
     private String userPass;
+
     private String userEmail;
+
     private String userAvatar;
+
     private Date userRegisterTime;
+
     private Date userLastLoginTime;
+
     private Integer userStatus;
 
 }
